@@ -1,0 +1,24 @@
+import numpy as np
+from bokeh.plotting import figure, show, output_file
+from collections import Counter
+import pandas as pd
+
+
+def frequency_bar(array, html_file_name="protein_frequency.html"):
+    frequency_counts = Counter(array)
+
+    data = {
+        'numbers': list(frequency_counts.keys()),
+        'frequencies': list(frequency_counts.values())
+    }
+
+    output_file(html_file_name)
+
+    p = figure(width = 1080, height = 1000, title="Array Values", toolbar_location=None, tools="")
+
+    p.vbar(x=np.arange(len(array)), top=array, width=0.5)
+
+    show(p)
+
+if __name__ == "__main__":
+    fout = pd.read_feather("enge_modified_nocomp.feather")
